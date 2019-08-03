@@ -39,8 +39,9 @@ class LoginViewController : UIViewController{
         unsubscribeFromKeyboardNotifications()
     }
     @IBAction func loginButtonwasPressed(_ sender: UIButton) {
-        //setLoggingIn(true)
+        activityIndicator.startAnimating()
         if self.emailTextField.text == "" || self.passwordTextField.text == "" {
+            activityIndicator.stopAnimating()
             self.present(Alerts.alert(title: "Incorrent Credentials", message: "Please enter your username and password"),
                          animated: true, completion: nil)
             return
@@ -56,9 +57,12 @@ class LoginViewController : UIViewController{
     func handleLogin(key: Int?, sessionId: String? ,success: Bool,error: Error?){
         setLoggingIn(false)
         guard let _ = key, let _ = sessionId else {
-            self.activityIndicator.isHidden = true
-            self.loginButton.isEnabled = true
-            self.present(Alerts.alert(title: "Login Error", message: error?.localizedDescription ?? ""), animated: true, completion: nil)
+            DispatchQueue.main.async {
+                self.activityIndicator.isHidden = true
+                self.loginButton.isEnabled = true
+                self.present(Alerts.alert(title: "Login Error", message: "Please Enter Valid Credentials"), animated: true, completion: nil)
+                return
+            }
             return
         }
         
@@ -71,15 +75,19 @@ class LoginViewController : UIViewController{
     
     func setLoggingIn(_ loggingIn: Bool) {
         if loggingIn {
+            
             activityIndicator.startAnimating()
         } else {
-            activityIndicator.stopAnimating()
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+            }
         }
-        emailTextField.isEnabled = !loggingIn
-        passwordTextField.isEnabled = !loggingIn
-        loginButton.isEnabled = !loggingIn
+        DispatchQueue.main.async {
+            self.emailTextField.isEnabled = !loggingIn
+            self.passwordTextField.isEnabled = !loggingIn
+            self.loginButton.isEnabled = !loggingIn
     }
-    
+}
     private func configureTapGesture(){
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.handleTap))
         view.addGestureRecognizer(tapGesture)

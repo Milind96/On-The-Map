@@ -16,9 +16,22 @@ class InformationPostingViewController: UIViewController {
     @IBOutlet weak var locationTextField: UITextField!
     @IBOutlet weak var linkTextField: UITextField!
     @IBOutlet weak var findLocationButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        clearTextFields()
+        subscribeToKeyboardNotifications()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        unsubscribeFromKeyboardNotifications()
+    }
+    
     let AddLocationID = "AddLocation"
     var lat: Double = 0.0
     var long: Double = 0.0
@@ -96,15 +109,6 @@ extension InformationPostingViewController : CLLocationManagerDelegate {
     }
     
 }
-
-extension InformationPostingViewController : UITextFieldDelegate {
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-}
-
 extension String {
     var isValidURL: Bool {
         let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
@@ -117,4 +121,51 @@ extension String {
         }
     }
 
+}
+
+extension InformationPostingViewController : UITextFieldDelegate {
+    
+    func subscribeToKeyboardNotifications() {
+        // Subscribing
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+    }
+    func unsubscribeFromKeyboardNotifications() {
+        // Unsubscribing
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    
+    @objc func keyboardWillShow(_ notification:Notification) {
+        if linkTextField.isFirstResponder{
+            view.frame.origin.y = -getKeyboardHeight(notification)/5
+        }
+    }
+    
+    
+    @objc func keyboardWillHide(_ notification: Notification) {
+        view.frame.origin.y = 0
+    }
+    
+    func getKeyboardHeight(_ notification:Notification) -> CGFloat {
+        // Function to get keyboard height
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue // of CGRect
+        return keyboardSize.cgRectValue.height
+        
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func clearTextFields(){
+        locationTextField.text = ""
+        linkTextField.text = ""
+    }
+    
 }

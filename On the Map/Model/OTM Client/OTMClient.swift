@@ -305,7 +305,7 @@ class OTMClient {
             if let response = response {
                 //completionHandler(response,nil)
             } else {
-                print(error!)
+                //print(error!)
                 completionHandler(nil,error)
             }
         }

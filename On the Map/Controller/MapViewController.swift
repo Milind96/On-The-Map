@@ -13,6 +13,7 @@ class MapViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
@@ -70,6 +71,7 @@ class MapViewController: UIViewController {
         }
         DispatchQueue.main.async {
             self.mapView.addAnnotations(annotations)
+            self.activityIndicator.stopAnimating()
         }
     }
     

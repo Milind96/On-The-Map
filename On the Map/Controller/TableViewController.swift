@@ -10,6 +10,7 @@ import UIKit
 
 class TableViewController: UITableViewController {
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     let LocationTableViewID = "LocationTableView"
     var studentInformation = StudentLocationInformation.sharedGlobal.location
     
@@ -65,11 +66,8 @@ extension TableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: LocationTableViewID)
-        debugPrint(studentInformation)
         
         let studentLocation = StudentLocationInformation.sharedGlobal.location[indexPath.row]
-        print(studentInformation)
-        print("Reached")
         cell.imageView?.image = #imageLiteral(resourceName: "icon_pin")
         cell.textLabel?.text = studentLocation!.firstName + " " + studentLocation!.lastName
         cell.detailTextLabel?.text = studentLocation?.mediaURL

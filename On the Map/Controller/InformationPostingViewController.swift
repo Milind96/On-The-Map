@@ -18,11 +18,11 @@ class InformationPostingViewController: UIViewController {
     @IBOutlet weak var findLocationButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     let AddLocationID = "AddLocation"
     var lat: Double = 0.0
     var long: Double = 0.0
+    var nickname:String = ""
     
     @IBAction func findLocationButtonWasPressed(_ sender: Any) {
     
@@ -33,17 +33,15 @@ class InformationPostingViewController: UIViewController {
             present(Alerts.alert(title: "Error", message: "Please Enter a Valid URL!"), animated: true)
         }
         else {
+            getuserData()
             getCoordinate(location: locationTextField.text!, completionHandler: handleGetCoordinate(response:error:))
         }
         
     }
     
     @IBAction func cancelButtonWasPressed(_ sender: Any) {
-        
         self.dismiss(animated: true, completion: nil)
-        
     }
-
 }
 
 
@@ -63,7 +61,6 @@ extension InformationPostingViewController : CLLocationManagerDelegate {
         }
     }
     
-    
     func handleGetCoordinate(response: CLLocationCoordinate2D, error: Error? ) -> Void{
         if response.latitude == -180 || response.longitude == -180{
             present(Alerts.alert(title: "Invalid Location", message: "Please Enter a Valid Location"), animated: true)
@@ -74,6 +71,18 @@ extension InformationPostingViewController : CLLocationManagerDelegate {
         }
     }
     
+    func getuserData(){
+        OTMClient.getUserData(completion: handleGetUserData(usertDataResponse:errror:))
+    }
+    func handleGetUserData(usertDataResponse: UserDataResponse?,errror:Error?){
+        if let userDataResponse = usertDataResponse {
+            nickname = userDataResponse.nickname
+        } else {
+            present(Alerts.alert(title: "Error", message: "Could not get first and last name"), animated: true)
+        }
+    }
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let destinationVC = segue.destination as? AddLocationViewController else {
             print("Unable to cast ViewController")
@@ -83,6 +92,7 @@ extension InformationPostingViewController : CLLocationManagerDelegate {
         destinationVC.newLatitude = lat
         destinationVC.mediaURL = linkTextField.text ?? ""
         destinationVC.mapString = locationTextField.text ?? ""
+        destinationVC.nickname = nickname
     }
     
 }

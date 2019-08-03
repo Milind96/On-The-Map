@@ -49,21 +49,21 @@ class LoginViewController : UIViewController{
         loginButton.isEnabled = false
         
         OTMClient.login(username: self.emailTextField.text ?? "", password: self.passwordTextField.text ?? "", completion: handleLogin(key:sessionId:success:error:))
-    }
+     }
     
     
     
     func handleLogin(key: Int?, sessionId: String? ,success: Bool,error: Error?){
         setLoggingIn(false)
         guard let _ = key, let _ = sessionId else {
-                self.activityIndicator.isHidden = true
-                self.loginButton.isEnabled = true
-                self.present(Alerts.alert(title: "Login Error", message: "Invalid username or password"), animated: true, completion: nil)
+            self.activityIndicator.isHidden = true
+            self.loginButton.isEnabled = true
+            self.present(Alerts.alert(title: "Login Error", message: error?.localizedDescription ?? ""), animated: true, completion: nil)
             return
         }
         
         if success{
-                self.performSegue(withIdentifier: self.CompleteLoginId, sender: nil)
+            self.performSegue(withIdentifier: self.CompleteLoginId, sender: nil)
         } else {
             present(Alerts.alert(title: "Login Failed", message: error?.localizedDescription ?? ""), animated: true,completion: nil)
         }
@@ -79,10 +79,6 @@ class LoginViewController : UIViewController{
         passwordTextField.isEnabled = !loggingIn
         loginButton.isEnabled = !loggingIn
     }
-    
-
-    
-    
     
     private func configureTapGesture(){
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.handleTap))
@@ -100,9 +96,6 @@ class LoginViewController : UIViewController{
     }
     
 }
-
-
-
 
 extension LoginViewController : UITextFieldDelegate{
     
@@ -145,8 +138,8 @@ extension LoginViewController : UITextFieldDelegate{
     }
     
     func clearTextFields(){
-    emailTextField.text = ""
-    passwordTextField.text = ""
+        emailTextField.text = ""
+        passwordTextField.text = ""
     }
     
 }

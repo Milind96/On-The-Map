@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A320BFFF22F5597C00A71E9F /* UserDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A320BFFE22F5597C00A71E9F /* UserDataResponse.swift */; };
 		A338FD1722E96D490032A097 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338FD1622E96D490032A097 /* LoginViewController.swift */; };
 		A338FD1922E974E70032A097 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338FD1822E974E70032A097 /* SignUpViewController.swift */; };
 		A338FD1B22E989430032A097 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338FD1A22E989430032A097 /* MapViewController.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A320BFFE22F5597C00A71E9F /* UserDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataResponse.swift; sourceTree = "<group>"; };
 		A338FD1622E96D490032A097 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A338FD1822E974E70032A097 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		A338FD1A22E989430032A097 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				A338FD2922E9D5EE0032A097 /* StudentInformation.swift */,
 				A338FD3D22ECB0A40032A097 /* StudentResult.swift */,
 				A338FD4422F09DF70032A097 /* PostLocationResponse.swift */,
+				A320BFFE22F5597C00A71E9F /* UserDataResponse.swift */,
 			);
 			path = "OTM Response";
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 				A338FD3222E9DB990032A097 /* StudentLocationInformation.swift in Sources */,
 				A338FD3822E9E1110032A097 /* Session.swift in Sources */,
 				A338FD3422E9DC8E0032A097 /* OTMClient.swift in Sources */,
+				A320BFFF22F5597C00A71E9F /* UserDataResponse.swift in Sources */,
 				A338FD1E22E9926B0032A097 /* Alerts.swift in Sources */,
 				A3B95B2322E8BBD700B70C36 /* AppDelegate.swift in Sources */,
 			);

@@ -229,10 +229,15 @@
                                     <outlet property="delegate" destination="I6A-fx-Ye7" id="FSe-rC-dA3"/>
                                 </connections>
                             </mapView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="APe-Av-Skb">
+                                <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="GeI-Cn-M8C" firstAttribute="leading" secondItem="act-BO-ykS" secondAttribute="leading" id="Rzu-tt-KRr"/>
+                            <constraint firstItem="APe-Av-Skb" firstAttribute="centerX" secondItem="Qvr-Tk-PAN" secondAttribute="centerX" id="SMf-dP-Dn0"/>
+                            <constraint firstItem="APe-Av-Skb" firstAttribute="centerY" secondItem="Qvr-Tk-PAN" secondAttribute="centerY" id="eN1-G5-BET"/>
                             <constraint firstItem="GeI-Cn-M8C" firstAttribute="bottom" secondItem="act-BO-ykS" secondAttribute="bottom" id="pnj-bF-PJW"/>
                             <constraint firstItem="GeI-Cn-M8C" firstAttribute="top" secondItem="act-BO-ykS" secondAttribute="top" id="qSy-z6-Egz"/>
                             <constraint firstItem="act-BO-ykS" firstAttribute="trailing" secondItem="GeI-Cn-M8C" secondAttribute="trailing" id="tLh-cJ-POf"/>
@@ -260,6 +265,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="APe-Av-Skb" id="xif-zw-5KR"/>
                         <outlet property="mapView" destination="GeI-Cn-M8C" id="Qpm-jN-Hsg"/>
                     </connections>
                 </viewController>
@@ -270,12 +276,15 @@
         <!--On the Map-->
         <scene sceneID="xlu-U9-U1T">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cne-Fs-M1h" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="CAE-Tw-VKV" customClass="TableViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="KT7-jJ-QC4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" id="m0b-Qg-eGE">
+                            <rect key="frame" x="0.0" y="125" width="375" height="20"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </activityIndicatorView>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LocationTableView" textLabel="f0Z-B1-txw" detailTextLabel="mUO-2K-DFt" imageView="5kP-Mv-uYY" rowHeight="97" style="IBUITableViewCellStyleSubtitle" id="WTw-oJ-c3J">
                                 <rect key="frame" x="0.0" y="28" width="375" height="97"/>
@@ -330,7 +339,11 @@
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="activityIndicator" destination="m0b-Qg-eGE" id="l5L-Lg-6HA"/>
+                    </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cne-Fs-M1h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="953" y="921"/>
         </scene>

@@ -9,14 +9,14 @@
 import Foundation
 
 struct UserDataResponse: Codable {
-    let nickname: String
-}
-
-
-struct User: Codable {
-    let lastname: String
-    enum CodingKeys: String, CodingKey {
-        case lastname = "last_name"
+    let firstName: String
+    let lastName: String
+    let nickName: String
+    
+    enum CodingKeys : String,CodingKey{
+        case firstName = "first_name"
+        case lastName = "last_name"
+        case nickName = "nickname"
     }
 }
 

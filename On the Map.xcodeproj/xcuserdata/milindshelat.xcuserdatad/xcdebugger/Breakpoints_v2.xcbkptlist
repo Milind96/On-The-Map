@@ -9,13 +9,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "On the Map/Model/OTM Client/OTMClient.swift"
-            timestampString = "586553880.805071"
+            filePath = "On the Map/Controller/AddLocationViewController.swift"
+            timestampString = "586600878.037383"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
-            landmarkName = "taskForPOSTRequest(url:responseType:body:completion:)"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

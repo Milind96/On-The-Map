@@ -281,7 +281,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" id="m0b-Qg-eGE">
+                        <activityIndicatorView key="tableFooterView" hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" id="m0b-Qg-eGE">
                             <rect key="frame" x="0.0" y="125" width="375" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </activityIndicatorView>
@@ -391,7 +391,7 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="URL"/>
                                         <connections>
                                             <outlet property="delegate" destination="1mj-bD-jyn" id="xXY-R9-837"/>
                                         </connections>
@@ -417,6 +417,9 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_world" translatesAutoresizingMaskIntoConstraints="NO" id="HNk-32-OAt">
                                 <rect key="frame" x="137" y="104" width="100" height="67"/>
                             </imageView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="hL3-8V-asf">
+                                <rect key="frame" x="178" y="462" width="19" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -425,6 +428,9 @@
                             <constraint firstItem="HXO-qV-EFr" firstAttribute="trailing" secondItem="44n-Bp-Owp" secondAttribute="trailing" id="Pdb-je-zgL"/>
                             <constraint firstItem="HNk-32-OAt" firstAttribute="leading" secondItem="44n-Bp-Owp" secondAttribute="leading" constant="137" id="R78-9f-atX"/>
                             <constraint firstItem="44n-Bp-Owp" firstAttribute="trailing" secondItem="HNk-32-OAt" secondAttribute="trailing" constant="138" id="b0m-bN-fcw"/>
+                            <constraint firstItem="hL3-8V-asf" firstAttribute="leading" secondItem="44n-Bp-Owp" secondAttribute="leading" constant="178" id="bhg-5r-284"/>
+                            <constraint firstItem="hL3-8V-asf" firstAttribute="centerX" secondItem="VY1-t7-xeh" secondAttribute="centerX" id="km7-Ke-rHX"/>
+                            <constraint firstItem="hL3-8V-asf" firstAttribute="top" secondItem="ihe-WZ-W5L" secondAttribute="bottom" constant="34" id="rxW-eT-OF9"/>
                             <constraint firstItem="HXO-qV-EFr" firstAttribute="leading" secondItem="44n-Bp-Owp" secondAttribute="leading" id="uJn-f4-N5r"/>
                             <constraint firstItem="ihe-WZ-W5L" firstAttribute="centerY" secondItem="VY1-t7-xeh" secondAttribute="centerY" id="wZJ-G0-pPA"/>
                             <constraint firstItem="ihe-WZ-W5L" firstAttribute="centerX" secondItem="VY1-t7-xeh" secondAttribute="centerX" id="zD4-Vr-a5e"/>
@@ -432,6 +438,7 @@
                         <viewLayoutGuide key="safeArea" id="44n-Bp-Owp"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="hL3-8V-asf" id="a5E-wt-uhL"/>
                         <outlet property="findLocationButton" destination="JVi-0w-G5Q" id="zDQ-f0-BeE"/>
                         <outlet property="imageView" destination="HNk-32-OAt" id="iaE-bn-jT0"/>
                         <outlet property="linkTextField" destination="aKc-eH-T0k" id="gdV-IN-ucF"/>

@@ -16,8 +16,10 @@ class InformationPostingViewController: UIViewController {
     @IBOutlet weak var locationTextField: UITextField!
     @IBOutlet weak var linkTextField: UITextField!
     @IBOutlet weak var findLocationButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
+        activityIndicator.stopAnimating()
         super.viewDidLoad()
     }
     
@@ -35,19 +37,22 @@ class InformationPostingViewController: UIViewController {
     let AddLocationID = "AddLocation"
     var lat: Double = 0.0
     var long: Double = 0.0
-    var nickname:String = ""
+    var firstName:String = ""
+    var lastName: String = ""
+    var nickName: String = ""
     
     @IBAction func findLocationButtonWasPressed(_ sender: Any) {
-    
+        activityIndicator.startAnimating()
         if (locationTextField.text?.isEmpty)! || (linkTextField.text?.isEmpty)! {
             present(Alerts.alert(title: "Error", message: "Please Enter a Location and a URL."), animated: true)
+            activityIndicator.stopAnimating()
         }
         else if !(linkTextField.text?.isValidURL)!{
             present(Alerts.alert(title: "Error", message: "Please Enter a Valid URL!"), animated: true)
+            activityIndicator.stopAnimating()
         }
         else {
             getuserData()
-            getCoordinate(location: locationTextField.text!, completionHandler: handleGetCoordinate(response:error:))
         }
         
     }
@@ -61,6 +66,7 @@ class InformationPostingViewController: UIViewController {
 extension InformationPostingViewController : CLLocationManagerDelegate {
     
     func getCoordinate(location : String, completionHandler: @escaping(CLLocationCoordinate2D, Error?) -> Void ) {
+        
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(location) { (placemarks, error) in
             if error == nil {
@@ -77,10 +83,12 @@ extension InformationPostingViewController : CLLocationManagerDelegate {
     func handleGetCoordinate(response: CLLocationCoordinate2D, error: Error? ) -> Void{
         if response.latitude == -180 || response.longitude == -180{
             present(Alerts.alert(title: "Invalid Location", message: "Please Enter a Valid Location"), animated: true)
+            activityIndicator.stopAnimating()
         } else {
             long = response.longitude
             lat = response.latitude
             performSegue(withIdentifier: AddLocationID, sender: nil)
+            activityIndicator.stopAnimating()
         }
     }
     
@@ -89,9 +97,13 @@ extension InformationPostingViewController : CLLocationManagerDelegate {
     }
     func handleGetUserData(usertDataResponse: UserDataResponse?,errror:Error?){
         if let userDataResponse = usertDataResponse {
-            nickname = userDataResponse.nickname
+            firstName = userDataResponse.firstName
+            lastName = userDataResponse.lastName
+            nickName = userDataResponse.nickName
+            getCoordinate(location: locationTextField.text!, completionHandler: handleGetCoordinate(response:error:))
         } else {
             present(Alerts.alert(title: "Error", message: "Could not get first and last name"), animated: true)
+            activityIndicator.stopAnimating()
         }
     }
     
@@ -105,7 +117,9 @@ extension InformationPostingViewController : CLLocationManagerDelegate {
         destinationVC.newLatitude = lat
         destinationVC.mediaURL = linkTextField.text ?? ""
         destinationVC.mapString = locationTextField.text ?? ""
-        destinationVC.nickname = nickname
+        destinationVC.firstName = firstName
+        destinationVC.lastName = lastName
+        destinationVC.nickname = nickName
     }
     
 }

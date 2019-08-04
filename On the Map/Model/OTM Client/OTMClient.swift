@@ -56,6 +56,7 @@ class OTMClient {
         
         let request = URLRequest(url: URL(string: url)!)
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            
             guard let data = data else {
                 print("no data")
                 DispatchQueue.main.async {
@@ -63,10 +64,8 @@ class OTMClient {
                 }
                 return
             }
-            
-            //            let range = (5..<data.count)
-            //            let newData = data.subdata(in: range) /* subset response data! */
-            //            print(String(data: newData, encoding: .utf8)!)
+            let newData = String(decoding: data, as: UTF8.self)
+            print(newData)
             
             do {
                 let decoder = JSONDecoder()
@@ -107,6 +106,7 @@ class OTMClient {
                 
                 return
             }
+            
             if httpStatusCode >= 200 && httpStatusCode < 300 {
                 // Since Status Code is valid. Process Data here only.
                 guard let data = data else {
@@ -165,54 +165,6 @@ class OTMClient {
     
     
     
-    //            func sendError(_ error: String) {
-    //                print(error)
-    //                let userInfo = [NSLocalizedDescriptionKey : error]
-    //                completion(nil, NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
-    //            }
-    //
-    //            guard (error == nil) else {
-    //                sendError("There was an error with your request: \(error!.localizedDescription)")
-    //                return
-    //            }
-    //
-    //            guard let statusCode = (response as? HTTPURLResponse)?.statusCode else {
-    //                sendError("Request did not return a valid response.")
-    //                return
-    //            }
-    //
-    //            switch (statusCode) {
-    //            case 403:
-    //                sendError("Please check your credentials and try again.")
-    //            case 200 ..< 299:
-    //                break
-    //            default:
-    //                sendError("Your request returned a status code other than 2xx!")
-    //            }
-    
-    //            guard let data = data else {
-    //                sendError("No data was returned by the request!")
-    //                return
-    //            }
-    
-    
-    
-    //let range = (5..<data.count)
-    //newData = data.subdata(in: range)
-    
-    //            let decoder = JSONDecoder()
-    //            do {
-    //                let responseObject = try decoder.decode(ResponseType.self, from: newData)
-    //                DispatchQueue.main.async {
-    //                    completion(responseObject, nil)
-    //                }
-    //            } catch {
-    //                DispatchQueue.main.async {
-    //                    completion(nil, error)
-    //                }
-    //            }
-    //        }
-    //        task.resume()
     
     
     class func login(username: String, password: String, completion: @escaping (Int?,String?, Bool, Error?) -> Void){
@@ -221,13 +173,10 @@ class OTMClient {
         
         taskForPOSTRequest(url: EndPoints.createSessionId.stringValue, responseType: NewSession.self, body: body!) { (response, error) in
             if let response = response {
-                //print(response.account.key)
-                //print(response.session.id)
                 OTMClient.Auth.sessionId = response.session.id
                 OTMClient.Auth.key = response.account.key
                 completion(Int(OTMClient.Auth.key),OTMClient.Auth.sessionId,true, nil)
             } else {
-                //print(error!)
                 completion(nil,nil,false,error)
             }
         }
@@ -269,26 +218,25 @@ class OTMClient {
             }
         }
         downloadTask.resume()
-        
     }
     
-    class func getStudentLocation(completion:@escaping([StudentInformation],Error?) -> Void){
+    class func getStudentLocation(completion:@escaping([StudentInformation]?,Error?) -> Void){
         
         taskForGetRequest(url: EndPoints.studentLocation.stringValue, response: StudentResult.self) { (response, error) in
             guard let response = response else {
                 print(error!)
-                completion([],error)
+                completion(nil,error)
                 return
             }
             completion(response.results,nil)
         }
     }
     
-    class func updateStudentLocation(completion:@escaping([StudentInformation],Error?) -> Void){
+    class func updateStudentLocation(completion:@escaping([StudentInformation]?,Error?) -> Void){
         taskForGetRequest(url: EndPoints.updateStudentLocation.stringValue, response: StudentResult.self) { (response, error) in
             guard let response = response else {
                 print(error!)
-                completion([],error)
+                completion(nil,error)
                 return
             }
             completion(response.results,nil)
@@ -299,13 +247,13 @@ class OTMClient {
         let jsonEncoder = JSONEncoder()
         let encodedPostData = try! jsonEncoder.encode(postData)
         let body = encodedPostData
-        print(encodedPostData)
+        //print(encodedPostData)
         
         taskForPOSTRequest(url: EndPoints.singleStudentLocation.stringValue, responseType: NewLocation.self, body: body) { (response, error) in
-            if let response = response {
-                //completionHandler(response,nil)
+            
+            if response != nil {
+                // completionHandler(respons, error)
             } else {
-                //print(error!)
                 completionHandler(nil,error)
             }
         }

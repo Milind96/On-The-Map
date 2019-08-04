@@ -18,8 +18,12 @@ class TableViewController: UITableViewController {
         super.viewDidLoad()
         
         OTMClient.getStudentLocation() { locations, error in
-            self.studentInformation = locations
-            print(locations)
+            guard locations != nil else {
+               self.present(Alerts.alert(title: "Error", message: "Could not get student location"), animated: true)
+                self.activityIndicator.stopAnimating()
+                return
+            }
+            //print(locations)
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -35,6 +39,7 @@ class TableViewController: UITableViewController {
         
         guard let studentLocation = studentLocation else {
             present(Alerts.alert(title: "Download Error", message: "Unable to Download Student Locations"), animated: true,completion: nil)
+            activityIndicator.stopAnimating()
             print(error!)
             return
         }

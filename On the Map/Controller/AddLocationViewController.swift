@@ -24,18 +24,22 @@ class AddLocationViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
     override func viewDidLoad() {
+
         super.viewDidLoad()
         setMapAnnotation()
     }
     
     
     @IBAction func submitButtomWasPressed(_ sender: Any) {
-        setUserInfo()
+        DispatchQueue.main.async {
+            self.setUserInfo()
+        }
     }
     
     func setUserInfo(){
-        let newLocation = NewLocation(uniqueKey: OTMClient.Auth.key, firstName: nickname, lastName: lastName, mapString: mapString, mediaURL: mediaURL, latitude: newLatitude, longitude: newLongitude)
+        let newLocation = NewLocation(uniqueKey: OTMClient.Auth.key, firstName: firstName, lastName: lastName, mapString: mapString, mediaURL: mediaURL, latitude: newLatitude, longitude: newLongitude)
         OTMClient.requestPostStudentInfo(postData: newLocation, completionHandler: handlePostLocationReponse(postLocationResponse:error:))
+        print(newLocation)
     }
     
     func setMapAnnotation() {
@@ -45,7 +49,7 @@ class AddLocationViewController: UIViewController {
         let cordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
         let annotation = MKPointAnnotation()
         annotation.coordinate = cordinate
-        annotation.title = nickname
+        annotation.title = "\(firstName) \(lastName)"
         annotation.subtitle = mediaURL
         self.mapView.addAnnotation(annotation)
         let coordinateRegion = MKCoordinateRegion.init(center: annotation.coordinate, latitudinalMeters: 30000, longitudinalMeters: 30000)

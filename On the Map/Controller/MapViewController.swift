@@ -40,6 +40,7 @@ class MapViewController: UIViewController {
     func handleGeHundredStudentInfo(studentInfo:[StudentInformation]?, error:Error?) {
         guard let studentInfo = studentInfo else {
             present(Alerts.alert(title: "Unable to Load", message: error?.localizedDescription ?? ""), animated: true,completion: nil)
+            activityIndicator.stopAnimating()
             print(error!)
             return
         }

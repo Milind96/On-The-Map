@@ -1,5 +1,5 @@
 # On-The-Map
- On The Map app allows Udacity students to share their location and a URL with other Udacity students using.
+ On The Map app allows Udacity students to share their location and a URL with other Udacity students.
  
  
 # Libraries and Frameworks Used
